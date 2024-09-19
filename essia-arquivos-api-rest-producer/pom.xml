@@ -19,17 +19,17 @@
     </properties>
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>com.joaoarthurolv</groupId>-->
-<!--            <artifactId>essia-arquivos-api-domain</artifactId>-->
-<!--            <version>${project.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.joaoarthurolv</groupId>
+            <artifactId>essia-arquivos-api-domain</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>com.joaoarthurolv</groupId>-->
-<!--            <artifactId>essia-arquivos-persistence</artifactId>-->
-<!--            <version>${project.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.joaoarthurolv</groupId>
+            <artifactId>essia-arquivos-api-persistence</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>io.springfox</groupId>

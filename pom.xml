@@ -21,9 +21,9 @@
 
 	<modules>
 		<module>essia-arquivos-api-domain</module>
-		<module>essia-arquivos-api-rest-producer</module>
 		<module>essia-arquivos-api-migration</module>
 		<module>essia-arquivos-api-persistence</module>
+		<module>essia-arquivos-api-rest-producer</module>
 	</modules>
 
 	<properties>
@@ -42,13 +42,4 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 </project>
