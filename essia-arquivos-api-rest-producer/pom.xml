@@ -21,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>com.joaoarthurolv</groupId>
-            <artifactId>essia-arquivos-api-domain</artifactId>
+            <artifactId>essia-arquivos-api-application</artifactId>
             <version>${project.version}</version>
         </dependency>
 
