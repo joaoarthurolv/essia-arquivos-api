@@ -7,12 +7,13 @@ import com.joaoarthurolv.essia.arquivos.api.rest.producer.controller.routes.Rout
 import com.joaoarthurolv.essia.arquivos.api.rest.producer.dto.DiretorioDTO;
 import com.joaoarthurolv.essia.arquivos.api.rest.producer.dto.mapper.DiretorioDTOMapper;
 import io.swagger.annotations.ApiOperation;
+import lombok.Getter;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author João Arthur on 19/09/2024
@@ -39,5 +40,12 @@ public class DiretorioController {
         } catch (CampoObrigatorioException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
+    }
+
+    @GetMapping
+    @ApiOperation(value = "Busca diretórios.", response = DiretorioDTO.class, responseContainer = "List", httpMethod = "GET")
+    public ResponseEntity<List<DiretorioDTO>> buscarDiretorios(){
+        List<Diretorio> diretorios = service.getAll();
+        return ResponseEntity.ok().body(diretorios.stream().map(mapper::fromModel).toList());
     }
 }

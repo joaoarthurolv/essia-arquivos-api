@@ -7,6 +7,8 @@ import com.joaoarthurolv.essia.arquivos.api.persistence.repository.DiretorioJpaR
 import com.joaoarthurolv.essia.arquivos.api.port.repository.DiretorioRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author João Arthur on 19/09/2024
  */
@@ -26,5 +28,10 @@ public class DiretorioRepositoryImpl implements DiretorioRepository {
     public Diretorio salvarDiretorio(Diretorio diretorio) {
         DiretorioEntity diretorioSalvo = jpaRepository.save(mapper.fromModel(diretorio));
         return mapper.toModel(diretorioSalvo);
+    }
+
+    @Override
+    public List<Diretorio> findAll() {
+        return jpaRepository.findAllByDiretorioPaiIsNull().stream().map(mapper::toModel).toList();
     }
 }

@@ -5,6 +5,8 @@ import com.joaoarthurolv.essia.arquivos.api.port.repository.DiretorioRepository;
 import com.joaoarthurolv.essia.arquivos.api.port.service.DiretorioService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author João Arthur on 19/09/2024
  */
@@ -20,5 +22,10 @@ public class DiretorioServiceImpl implements DiretorioService {
     @Override
     public Diretorio salvarDiretorio(Diretorio diretorio) {
         return repository.salvarDiretorio(diretorio);
+    }
+
+    @Override
+    public List<Diretorio> getAll() {
+        return repository.findAll();
     }
 }
