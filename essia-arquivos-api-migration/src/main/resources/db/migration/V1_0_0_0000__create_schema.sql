@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS arquivo_virtual.arquivo
     ultima_modificacao_em   timestamp    not null,
     ativo                   boolean      not null default true,
     id_diretorio            int8,
-    primary key (id_diretorio),
+    primary key (id_arquivo),
     CONSTRAINT fk_id_diretorio FOREIGN KEY (id_diretorio) REFERENCES arquivo_virtual.diretorio (id_diretorio)
     );
 
