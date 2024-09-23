@@ -1,19 +1,17 @@
 package com.joaoarthurolv.essia.arquivos.api.rest.producer.controller;
 
-import com.joaoarthurolv.essia.arquivos.api.exception.CampoObrigatorioException;
+import com.joaoarthurolv.essia.arquivos.api.exception.ValidacaoException;
 import com.joaoarthurolv.essia.arquivos.api.model.Diretorio;
 import com.joaoarthurolv.essia.arquivos.api.port.service.DiretorioService;
 import com.joaoarthurolv.essia.arquivos.api.rest.producer.controller.routes.RouteDiretorio;
 import com.joaoarthurolv.essia.arquivos.api.rest.producer.dto.DiretorioDTO;
 import com.joaoarthurolv.essia.arquivos.api.rest.producer.dto.mapper.DiretorioDTOMapper;
 import io.swagger.annotations.ApiOperation;
-import lombok.Getter;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author João Arthur on 19/09/2024
@@ -37,7 +35,7 @@ public class DiretorioController {
         try {
             Diretorio diretorio = service.salvarDiretorio(mapper.toModel(dto));
             return ResponseEntity.ok().body(mapper.fromModel(diretorio));
-        } catch (CampoObrigatorioException exception) {
+        } catch (ValidacaoException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }

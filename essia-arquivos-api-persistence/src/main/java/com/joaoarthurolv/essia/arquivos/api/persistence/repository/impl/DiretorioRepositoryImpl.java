@@ -34,4 +34,9 @@ public class DiretorioRepositoryImpl implements DiretorioRepository {
     public List<Diretorio> findAll() {
         return jpaRepository.findAllByDiretorioPaiIsNull().stream().map(mapper::toModel).toList();
     }
+
+    @Override
+    public Diretorio findById(Long idDiretorio) {
+        return jpaRepository.findById(idDiretorio).map(mapper::toModel).orElse(null);
+    }
 }

@@ -13,4 +13,6 @@ public interface DiretorioRepository {
     Diretorio salvarDiretorio(Diretorio diretorio);
 
     List<Diretorio> findAll();
+
+    Diretorio findById(Long idDiretorio);
 }
