@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres
+    container_name: db
+    restart: always
+    env_file:
+      - docker-variables-db.env
+    ports:
+      - '5432:5432'
+
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8081:8080'
+    env_file:
+      - docker-variables-spring-application.env
+    depends_on:
+      - db
