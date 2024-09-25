@@ -5,6 +5,7 @@ import com.joaoarthurolv.essia.arquivos.api.exception.DiretorioPaiInexistenteExc
 import com.joaoarthurolv.essia.arquivos.api.exception.NomeDiretorioRepetidoException;
 import com.joaoarthurolv.essia.arquivos.api.model.Diretorio;
 import com.joaoarthurolv.essia.arquivos.api.port.repository.DiretorioRepository;
+import com.joaoarthurolv.essia.arquivos.api.port.service.ArquivoService;
 import com.joaoarthurolv.essia.arquivos.api.port.service.DiretorioService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,6 +33,9 @@ class DiretorioServiceImplTest {
     private DiretorioService diretorioService;
 
     private Set<Diretorio> diretoriosMock;
+
+    @Mock
+    private ArquivoService arquivoService;
 
     @Mock
     private DiretorioRepository diretorioRepository;
@@ -70,7 +74,7 @@ class DiretorioServiceImplTest {
         diretoriosMock.add(diretorioRepetidoMock);
         diretorioComFilhoRepetidoMock.setDiretoriosFilhos(diretoriosMock);
 
-        diretorioService = new DiretorioServiceImpl(diretorioRepository);
+        diretorioService = new DiretorioServiceImpl(diretorioRepository, arquivoService);
     }
 
     @Test
