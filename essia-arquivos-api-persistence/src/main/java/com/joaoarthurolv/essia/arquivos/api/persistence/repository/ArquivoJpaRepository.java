@@ -12,4 +12,6 @@ import java.util.List;
 @Repository
 public interface ArquivoJpaRepository extends JpaRepository<ArquivoEntity, Long> {
     List<ArquivoEntity> findArquivoEntitiesByNomeArquivoStartsWith(String nomeArquivo);
+
+    List<ArquivoEntity> findArquivoEntitiesByDiretorioPai_IdDiretorio(Long idDiretorio);
 }

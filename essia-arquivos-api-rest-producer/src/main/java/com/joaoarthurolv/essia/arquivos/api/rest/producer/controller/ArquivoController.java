@@ -6,19 +6,20 @@ import com.joaoarthurolv.essia.arquivos.api.port.service.ArquivoService;
 import com.joaoarthurolv.essia.arquivos.api.rest.producer.controller.routes.RouteArquivo;
 import com.joaoarthurolv.essia.arquivos.api.rest.producer.dto.ArquivoDTO;
 import com.joaoarthurolv.essia.arquivos.api.rest.producer.dto.mapper.ArquivoDTOMapper;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author João Arthur on 22/09/2024
  */
 @RestController
 @RequestMapping(RouteArquivo.ARQUIVOS)
+@Api(value = "arquivos", tags = "arquivos")
 public class ArquivoController {
 
     private final ArquivoService service;
@@ -31,7 +32,7 @@ public class ArquivoController {
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Salva um arquivo.", httpMethod = "POST")
+    @ApiOperation(value = "Salva um arquivo.", httpMethod = "POST", response = ArquivoDTO.class)
     public ResponseEntity salvarArquivo(@RequestBody ArquivoDTO dto){
         try {
             Arquivo arquivo = service.salvarArquivo(mapper.toModel(dto));
@@ -39,5 +40,13 @@ public class ArquivoController {
         } catch (ValidacaoException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
+    }
+
+    @GetMapping
+    @ApiOperation(value = "Busca arquivos baseado no identificador do diretório.", httpMethod = "GET")
+    public ResponseEntity<List<ArquivoDTO>> buscarArquivosPorIdDiretorio(@RequestParam(name = "id-diretorio") Long idDiretorio){
+        List<Arquivo> arquivos = service.buscarArquivosPorIdDiretorio(idDiretorio);
+
+        return ResponseEntity.ok().body(arquivos.stream().map(mapper::fromModel).toList());
     }
 }

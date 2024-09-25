@@ -32,4 +32,9 @@ public class ArquivoRepositoryImpl implements ArquivoRepository {
     public List<Arquivo> findArquivosSemNome() {
         return mapper.toListModel(jpaRepository.findArquivoEntitiesByNomeArquivoStartsWith("sem_nome"));
     }
+
+    @Override
+    public List<Arquivo> findArquivosByIdDiretorio(Long idDiretorio) {
+        return mapper.toListModel(jpaRepository.findArquivoEntitiesByDiretorioPai_IdDiretorio(idDiretorio));
+    }
 }

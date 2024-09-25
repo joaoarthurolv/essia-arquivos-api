@@ -1,6 +1,7 @@
 package com.joaoarthurolv.essia.arquivos.api.rest.producer.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 
 /**
@@ -8,9 +9,9 @@ import lombok.Builder;
  */
 @Builder
 public record ArquivoDTO (
-        @JsonProperty("id-arquivo") Long idArquivo,
-        @JsonProperty("nome-arquivo") String nomeArquivo,
-        @JsonProperty("id-diretorio-pai") Long idDiretorioPai,
+        @JsonProperty("id-arquivo") @Schema(hidden = true) Long idArquivo,
+        @JsonProperty(value = "nome-arquivo") String nomeArquivo,
+        @JsonProperty(value = "id-diretorio-pai") @Schema(hidden = true) Long idDiretorioPai,
         @JsonProperty(value = "ativo", defaultValue = "true") Boolean ativo
 ){
     public ArquivoDTO {

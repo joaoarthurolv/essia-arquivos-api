@@ -11,4 +11,6 @@ public interface ArquivoRepository {
     Arquivo salvarArquivo(Arquivo arquivo);
 
     List<Arquivo> findArquivosSemNome();
+
+    List<Arquivo> findArquivosByIdDiretorio(Long idDiretorio);
 }

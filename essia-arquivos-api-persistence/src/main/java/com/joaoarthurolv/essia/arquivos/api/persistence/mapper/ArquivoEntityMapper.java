@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author João Arthur on 22/09/2024
@@ -25,7 +26,7 @@ public class ArquivoEntityMapper {
                 .idArquivo(model.getIdArquivo())
                 .nomeArquivo(model.getNomeArquivo())
                 .ativo(model.getAtivo())
-                .diretorioPai(diretorioEntityMapper.fromModel(model.getDiretorioPai()))
+                .diretorioPai(Objects.isNull(model.getDiretorioPai()) ? null : diretorioEntityMapper.fromModel(model.getDiretorioPai()))
                 .build();
     }
 
@@ -34,7 +35,7 @@ public class ArquivoEntityMapper {
                 .idArquivo(entity.getIdArquivo())
                 .nomeArquivo(entity.getNomeArquivo())
                 .ativo(entity.getAtivo())
-                .diretorioPai(diretorioEntityMapper.toModel(entity.getDiretorioPai()))
+                .diretorioPai(Objects.isNull(entity.getDiretorioPai()) ? null: diretorioEntityMapper.toModel(entity.getDiretorioPai()))
                 .build();
     }
 

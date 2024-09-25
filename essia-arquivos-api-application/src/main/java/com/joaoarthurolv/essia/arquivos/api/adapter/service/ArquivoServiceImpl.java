@@ -26,6 +26,11 @@ public class ArquivoServiceImpl implements ArquivoService {
         return repository.salvarArquivo(arquivoValidado);
     }
 
+    @Override
+    public List<Arquivo> buscarArquivosPorIdDiretorio(Long idDiretorio) {
+        return repository.findArquivosByIdDiretorio(idDiretorio);
+    }
+
     public Arquivo validarArquivo(Arquivo arquivo) {
         if(Objects.isNull(arquivo.getNomeArquivo()) || arquivo.getNomeArquivo().isEmpty()){
             List<Arquivo> arquivosSemNome = repository.findArquivosSemNome();
@@ -40,6 +45,6 @@ public class ArquivoServiceImpl implements ArquivoService {
             return arquivo;
         }
 
-        return null;
+        return arquivo;
     }
 }
