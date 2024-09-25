@@ -6,6 +6,7 @@ import com.joaoarthurolv.essia.arquivos.api.port.service.DiretorioService;
 import com.joaoarthurolv.essia.arquivos.api.rest.producer.controller.routes.RouteDiretorio;
 import com.joaoarthurolv.essia.arquivos.api.rest.producer.dto.DiretorioDTO;
 import com.joaoarthurolv.essia.arquivos.api.rest.producer.dto.mapper.DiretorioDTOMapper;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(RouteDiretorio.DIRETORIOS)
+@Api(value = "diretorios", tags = "diretorios")
 public class DiretorioController {
 
     private final DiretorioService service;
@@ -34,6 +36,24 @@ public class DiretorioController {
     public ResponseEntity salvarDiretorio(@RequestBody DiretorioDTO dto){
         try {
             Diretorio diretorio = service.salvarDiretorio(mapper.toModel(dto));
+            return ResponseEntity.ok().body(mapper.fromModel(diretorio));
+        } catch (ValidacaoException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
+    @PutMapping(value = RouteDiretorio.ID, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Atualiza um diretório.", httpMethod = "PUT")
+    public ResponseEntity atualizarDiretorio(
+            @PathVariable("id-diretorio") Long idDiretorio,
+            @RequestBody DiretorioDTO dto){
+        try {
+            Diretorio diretorio = mapper.toModel(dto);
+
+            diretorio.setIdDiretorio(idDiretorio);
+
+            service.atualizarDiretorio(diretorio);
+
             return ResponseEntity.ok().body(mapper.fromModel(diretorio));
         } catch (ValidacaoException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());

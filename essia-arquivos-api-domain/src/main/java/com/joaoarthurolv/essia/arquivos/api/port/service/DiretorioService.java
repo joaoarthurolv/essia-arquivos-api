@@ -10,5 +10,7 @@ import java.util.List;
 public interface DiretorioService {
     Diretorio salvarDiretorio(Diretorio diretorio);
 
+    Diretorio atualizarDiretorio(Diretorio diretorio);
+
     List<Diretorio> getAll();
 }

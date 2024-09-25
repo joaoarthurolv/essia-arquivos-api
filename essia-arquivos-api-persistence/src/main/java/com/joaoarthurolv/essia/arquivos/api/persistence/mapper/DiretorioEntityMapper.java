@@ -22,6 +22,8 @@ public class DiretorioEntityMapper {
                 .ativo(entity.getAtivo())
                 .diretorioPai(Objects.isNull(entity.getDiretorioPai()) ? null : Diretorio.builder().idDiretorio(entity.getDiretorioPai().getIdDiretorio()).build())
                 .diretoriosFilhos(toListModel(entity.getDiretoriosFilhos()))
+                .criadoEm(entity.getCriadoEm())
+                .ultimaModificacaoEm(entity.getUltimaModificacaoEm())
                 .build();
     }
 
@@ -32,6 +34,8 @@ public class DiretorioEntityMapper {
                 .ativo(model.getAtivo())
                 .diretorioPai(Objects.isNull(model.getDiretorioPai()) ? null : DiretorioEntity.builder().idDiretorio(model.getDiretorioPai().getIdDiretorio()).build())
                 .diretoriosFilhos(fromListModel(model.getDiretoriosFilhos()))
+                .criadoEm(model.getCriadoEm())
+                .ultimaModificacaoEm(model.getUltimaModificacaoEm())
                 .build();
     }
 

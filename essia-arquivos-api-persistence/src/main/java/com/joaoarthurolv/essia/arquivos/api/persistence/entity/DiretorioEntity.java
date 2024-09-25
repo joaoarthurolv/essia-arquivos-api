@@ -1,8 +1,10 @@
 package com.joaoarthurolv.essia.arquivos.api.persistence.entity;
 
+import com.joaoarthurolv.essia.arquivos.api.model.Diretorio;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
@@ -10,11 +12,8 @@ import java.util.Set;
  */
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(schema = "arquivo_virtual", name = "diretorio")
-@Builder
 public class DiretorioEntity extends AbstractEntity {
 
     @Id
@@ -35,4 +34,24 @@ public class DiretorioEntity extends AbstractEntity {
 
     @Column(name = "ativo")
     private Boolean ativo;
+
+    @Builder
+    private DiretorioEntity (Long idDiretorio, String nomeDiretorio, DiretorioEntity diretorioPai, Set<DiretorioEntity> diretoriosFilhos, Boolean ativo, LocalDateTime criadoEm, LocalDateTime ultimaModificacaoEm) {
+        super(criadoEm, ultimaModificacaoEm);
+        this.idDiretorio = idDiretorio;
+        this.nomeDiretorio = nomeDiretorio;
+        this.diretorioPai = diretorioPai;
+        this.diretoriosFilhos = diretoriosFilhos;
+        this.ativo = ativo;
+    }
+
+    public static class DiretorioEntityBuilder extends AbstractEntityBuilder {
+        DiretorioEntityBuilder() {
+            super();
+        }
+    }
+
+    public DiretorioEntity (){
+        super();
+    }
 }

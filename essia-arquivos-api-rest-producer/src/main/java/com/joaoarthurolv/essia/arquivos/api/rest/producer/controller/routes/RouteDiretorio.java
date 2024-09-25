@@ -5,4 +5,5 @@ package com.joaoarthurolv.essia.arquivos.api.rest.producer.controller.routes;
  */
 public interface RouteDiretorio extends RouteBase {
     String DIRETORIOS = RouteBase.BASE + "/diretorios";
+    String ID = "/{id-diretorio}";
 }

@@ -15,6 +15,12 @@ import java.util.Set;
 @Component
 public class DiretorioDTOMapper {
 
+    private final ArquivoDTOMapper arquivoDTOMapper;
+
+    public DiretorioDTOMapper(ArquivoDTOMapper arquivoDTOMapper) {
+        this.arquivoDTOMapper = arquivoDTOMapper;
+    }
+
     public Diretorio toModel(DiretorioDTO dto) {
         return Diretorio.builder()
                 .idDiretorio(dto.idDiretorio())
@@ -22,6 +28,7 @@ public class DiretorioDTOMapper {
                 .diretorioPai(Objects.isNull(dto.idDiretorioPai()) ? null : Diretorio.builder().idDiretorio(dto.idDiretorioPai()).build())
                 .ativo(dto.ativo())
                 .diretoriosFilhos(toListModel(dto.diretoriosFilhos()))
+                .arquivos(arquivoDTOMapper.toListModel(dto.arquivos()))
                 .build();
     }
 
@@ -32,6 +39,7 @@ public class DiretorioDTOMapper {
                .idDiretorioPai(Objects.isNull(model.getDiretorioPai()) ? null : model.getDiretorioPai().getIdDiretorio())
                .ativo(model.getAtivo())
                .diretoriosFilhos(fromListModel(model.getDiretoriosFilhos()))
+               .arquivos(arquivoDTOMapper.fromListModel(model.getArquivos()))
                .build();
     }
 
