@@ -33,5 +33,9 @@ SPRING_DATASOURCE_USERNAME=root
 SPRING_DATASOURCE_PASSWORD=root
 SPRING_JPA_HIBERNATE_DDL_AUTO=update
 ```  
-Com estes arquivos configurados, basta abrir o terminal na raiz do projeto e rodar o comando ```docker-compose up```.  
+Com estes arquivos configurados, basta seguir os seguintes passos:  
+ 1. Abrir o terminal na raiz do projeto 
+ 2. Rodar o comando ```mvn package -DskipTests``` para criar o arquivo ```.jar``` da aplicação
+ 3. Rodar o comando ```docker-compose up```.  
+
 Os endpoints vão estar disponíveis na porta 8081 e serão visíveis no [Swagger](http://localhost:8081/swagger-ui/). 
