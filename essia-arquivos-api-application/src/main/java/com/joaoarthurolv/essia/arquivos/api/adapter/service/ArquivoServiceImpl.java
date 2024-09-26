@@ -1,5 +1,7 @@
 package com.joaoarthurolv.essia.arquivos.api.adapter.service;
 
+import com.joaoarthurolv.essia.arquivos.api.exception.ArquivoInexistenteException;
+import com.joaoarthurolv.essia.arquivos.api.exception.DiretorioInexistenteException;
 import com.joaoarthurolv.essia.arquivos.api.model.Arquivo;
 import com.joaoarthurolv.essia.arquivos.api.port.repository.ArquivoRepository;
 import com.joaoarthurolv.essia.arquivos.api.port.service.ArquivoService;
@@ -29,6 +31,16 @@ public class ArquivoServiceImpl implements ArquivoService {
     @Override
     public List<Arquivo> buscarArquivosPorIdDiretorio(Long idDiretorio) {
         return repository.findArquivosByIdDiretorio(idDiretorio);
+    }
+
+    @Override
+    public void apagarArquivo(Long idArquivo) {
+        Arquivo arquivo = repository.findArquivoById(idArquivo);
+
+        if(Objects.isNull(arquivo))
+            throw new ArquivoInexistenteException("O arquivo passado não existe.");
+
+        repository.apagarArquivo(arquivo);
     }
 
     public Arquivo validarArquivo(Arquivo arquivo) {

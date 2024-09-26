@@ -13,4 +13,8 @@ public interface ArquivoRepository {
     List<Arquivo> findArquivosSemNome();
 
     List<Arquivo> findArquivosByIdDiretorio(Long idDiretorio);
+
+    Arquivo findArquivoById(Long idArquivo);
+
+    void apagarArquivo(Arquivo arquivo);
 }

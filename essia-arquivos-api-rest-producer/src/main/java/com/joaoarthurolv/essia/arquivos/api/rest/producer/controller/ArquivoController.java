@@ -1,5 +1,6 @@
 package com.joaoarthurolv.essia.arquivos.api.rest.producer.controller;
 
+import com.joaoarthurolv.essia.arquivos.api.exception.ArquivoInexistenteException;
 import com.joaoarthurolv.essia.arquivos.api.exception.ValidacaoException;
 import com.joaoarthurolv.essia.arquivos.api.model.Arquivo;
 import com.joaoarthurolv.essia.arquivos.api.port.service.ArquivoService;
@@ -48,5 +49,18 @@ public class ArquivoController {
         List<Arquivo> arquivos = service.buscarArquivosPorIdDiretorio(idDiretorio);
 
         return ResponseEntity.ok().body(arquivos.stream().map(mapper::fromModel).toList());
+    }
+
+    @DeleteMapping(value = RouteArquivo.ID, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Apaga arquivo baseado no identificador passado.", httpMethod = "DELETE")
+    public ResponseEntity apagarArquivo(
+            @PathVariable("id-arquivo") Long idArquivo){
+        try {
+            service.apagarArquivo(idArquivo);
+        } catch (ArquivoInexistenteException exception){
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+
+        return ResponseEntity.ok().build();
     }
 }
