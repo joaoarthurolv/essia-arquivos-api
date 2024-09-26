@@ -1,10 +1,14 @@
 package com.joaoarthurolv.essia.arquivos.api.rest.producer.controller;
 
 import com.joaoarthurolv.essia.arquivos.api.exception.ValidacaoException;
+import com.joaoarthurolv.essia.arquivos.api.model.Arquivo;
 import com.joaoarthurolv.essia.arquivos.api.model.Diretorio;
+import com.joaoarthurolv.essia.arquivos.api.port.service.ArquivoService;
 import com.joaoarthurolv.essia.arquivos.api.port.service.DiretorioService;
 import com.joaoarthurolv.essia.arquivos.api.rest.producer.controller.routes.RouteDiretorio;
 import com.joaoarthurolv.essia.arquivos.api.rest.producer.dto.DiretorioDTO;
+import com.joaoarthurolv.essia.arquivos.api.rest.producer.dto.RaizDTO;
+import com.joaoarthurolv.essia.arquivos.api.rest.producer.dto.mapper.ArquivoDTOMapper;
 import com.joaoarthurolv.essia.arquivos.api.rest.producer.dto.mapper.DiretorioDTOMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,11 +28,17 @@ public class DiretorioController {
 
     private final DiretorioService service;
 
+    private final ArquivoService arquivoService;
+
     private final DiretorioDTOMapper mapper;
 
-    public DiretorioController(DiretorioService service, DiretorioDTOMapper mapper) {
+    private final ArquivoDTOMapper arquivoDTOMapper;
+
+    public DiretorioController(DiretorioService service, ArquivoService arquivoService, DiretorioDTOMapper mapper, ArquivoDTOMapper arquivoDTOMapper) {
         this.service = service;
+        this.arquivoService = arquivoService;
         this.mapper = mapper;
+        this.arquivoDTOMapper = arquivoDTOMapper;
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -62,8 +72,15 @@ public class DiretorioController {
 
     @GetMapping
     @ApiOperation(value = "Busca diretórios.", response = DiretorioDTO.class, responseContainer = "List", httpMethod = "GET")
-    public ResponseEntity<List<DiretorioDTO>> buscarDiretorios(){
+    public ResponseEntity<RaizDTO> buscarDiretorios(){
         List<Diretorio> diretorios = service.getAll();
-        return ResponseEntity.ok().body(diretorios.stream().map(mapper::fromModel).toList());
+        List<Arquivo> arquivos = arquivoService.buscarArquivosPorIdDiretorio(null);
+
+        return ResponseEntity.ok().body(
+                RaizDTO.builder()
+                        .diretorios(diretorios.stream().map(mapper::fromModel).toList())
+                        .arquivos(arquivos.stream().map(arquivoDTOMapper::fromModel).toList())
+                        .build()
+        );
     }
 }

@@ -68,6 +68,11 @@ public class DiretorioServiceImpl implements DiretorioService {
             if(diretorioPai.getDiretoriosFilhos().stream().anyMatch(diretorioIrmao -> diretorioIrmao.getNomeDiretorio().equalsIgnoreCase(diretorio.getNomeDiretorio())))
                 throw new NomeDiretorioRepetidoException("Já existe um diretório com esse nome dentro do diretório pai especificado.");
         }
+
+        List<Diretorio> diretoriosRaiz = diretorioRepository.findAll();
+
+        if(diretoriosRaiz.stream().anyMatch(diretorioRaizIrmao -> diretorioRaizIrmao.getNomeDiretorio().equalsIgnoreCase(diretorio.getNomeDiretorio())))
+            throw new NomeDiretorioRepetidoException("Já existe um diretório com esse nome dentro do diretório pai especificado.");
     }
 
     public void carregarArquivos(Diretorio diretorio){
