@@ -1,6 +1,7 @@
 package com.joaoarthurolv.essia.arquivos.api.adapter.service;
 
 import com.joaoarthurolv.essia.arquivos.api.exception.CampoObrigatorioException;
+import com.joaoarthurolv.essia.arquivos.api.exception.DiretorioInexistenteException;
 import com.joaoarthurolv.essia.arquivos.api.exception.DiretorioPaiInexistenteException;
 import com.joaoarthurolv.essia.arquivos.api.exception.NomeDiretorioRepetidoException;
 import com.joaoarthurolv.essia.arquivos.api.model.Diretorio;
@@ -30,6 +31,8 @@ class DiretorioServiceImplTest {
 
     private Diretorio diretorioComDiretorioPaiInexistenteMock;
 
+    private Diretorio diretorioValidoMock;
+
     private DiretorioService diretorioService;
 
     private Set<Diretorio> diretoriosMock;
@@ -43,6 +46,13 @@ class DiretorioServiceImplTest {
     @BeforeEach
     void setUp(){
         MockitoAnnotations.initMocks(this);
+
+        diretorioValidoMock = Diretorio
+                .builder()
+                .idDiretorio(1L)
+                .nomeDiretorio("Diretorio")
+                .ativo(true)
+                .build();
 
         diretorioComNomeNuloMock = Diretorio.builder()
                 .idDiretorio(1L)
@@ -94,5 +104,21 @@ class DiretorioServiceImplTest {
         Mockito.lenient().when(diretorioRepository.findById(1L)).thenReturn(diretorioComFilhoRepetidoMock);
 
         Assertions.assertThrows(NomeDiretorioRepetidoException.class, () -> diretorioService.salvarDiretorio(diretorioRepetidoMock));
+    }
+
+    @Test
+    void naoDeveApagarDiretorioInexistente(){
+        Mockito.lenient().when(diretorioRepository.findById(1L)).thenReturn(null);
+
+        Assertions.assertThrows(DiretorioInexistenteException.class, () -> diretorioService.apagarDiretorio(1L));
+    }
+
+    @Test
+    void deveApagarDiretorioComSucesso(){
+        Mockito.lenient().when(diretorioRepository.findById(1L)).thenReturn(diretorioValidoMock);
+
+        diretorioService.apagarDiretorio(1L);
+
+        Mockito.verify(diretorioRepository, Mockito.times(1)).apagarRepositorio(diretorioValidoMock);
     }
 }

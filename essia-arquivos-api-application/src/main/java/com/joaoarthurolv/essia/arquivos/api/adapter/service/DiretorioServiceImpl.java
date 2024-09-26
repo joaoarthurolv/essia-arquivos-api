@@ -1,6 +1,7 @@
 package com.joaoarthurolv.essia.arquivos.api.adapter.service;
 
 import com.joaoarthurolv.essia.arquivos.api.exception.CampoObrigatorioException;
+import com.joaoarthurolv.essia.arquivos.api.exception.DiretorioInexistenteException;
 import com.joaoarthurolv.essia.arquivos.api.exception.DiretorioPaiInexistenteException;
 import com.joaoarthurolv.essia.arquivos.api.exception.NomeDiretorioRepetidoException;
 import com.joaoarthurolv.essia.arquivos.api.model.Arquivo;
@@ -53,6 +54,19 @@ public class DiretorioServiceImpl implements DiretorioService {
         diretorios.forEach(this::carregarArquivos);
 
         return diretorios;
+    }
+
+    @Override
+    public void apagarDiretorio(Long idDiretorio) {
+        Diretorio diretorio = diretorioRepository.findById(idDiretorio);
+
+        if(Objects.isNull(diretorio))
+            throw new DiretorioInexistenteException("Diretório passado não existe.");
+
+        List<Arquivo> arquivos = arquivoService.buscarArquivosPorIdDiretorio(diretorio.getIdDiretorio());
+        arquivos.forEach(arquivo -> arquivoService.apagarArquivo(arquivo.getIdArquivo()));
+
+        diretorioRepository.apagarRepositorio(diretorio);
     }
 
     private void validaDiretorio(Diretorio diretorio) {

@@ -15,4 +15,6 @@ public interface DiretorioRepository {
     List<Diretorio> findAll();
 
     Diretorio findById(Long idDiretorio);
+
+    void apagarRepositorio(Diretorio diretorio);
 }

@@ -1,5 +1,6 @@
 package com.joaoarthurolv.essia.arquivos.api.rest.producer.controller;
 
+import com.joaoarthurolv.essia.arquivos.api.exception.DiretorioInexistenteException;
 import com.joaoarthurolv.essia.arquivos.api.exception.ValidacaoException;
 import com.joaoarthurolv.essia.arquivos.api.model.Arquivo;
 import com.joaoarthurolv.essia.arquivos.api.model.Diretorio;
@@ -82,5 +83,19 @@ public class DiretorioController {
                         .arquivos(arquivos.stream().map(arquivoDTOMapper::fromModel).toList())
                         .build()
         );
+    }
+
+    @DeleteMapping(value = RouteDiretorio.ID, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Apaga diretório baseado no identificador passado.", httpMethod = "DELETE")
+    public ResponseEntity apagarDiretorio(
+            @PathVariable("id-diretorio") Long idDiretorio
+    ){
+        try {
+            service.apagarDiretorio(idDiretorio);
+        } catch (DiretorioInexistenteException exception){
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+
+        return ResponseEntity.ok().build();
     }
 }

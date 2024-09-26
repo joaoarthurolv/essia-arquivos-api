@@ -13,4 +13,6 @@ public interface DiretorioService {
     Diretorio atualizarDiretorio(Diretorio diretorio);
 
     List<Diretorio> getAll();
+
+    void apagarDiretorio(Long idDiretorio);
 }

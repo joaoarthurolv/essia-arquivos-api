@@ -39,4 +39,9 @@ public class DiretorioRepositoryImpl implements DiretorioRepository {
     public Diretorio findById(Long idDiretorio) {
         return jpaRepository.findById(idDiretorio).map(mapper::toModel).orElse(null);
     }
+
+    @Override
+    public void apagarRepositorio(Diretorio diretorio) {
+        jpaRepository.delete(mapper.fromModel(diretorio));
+    }
 }
