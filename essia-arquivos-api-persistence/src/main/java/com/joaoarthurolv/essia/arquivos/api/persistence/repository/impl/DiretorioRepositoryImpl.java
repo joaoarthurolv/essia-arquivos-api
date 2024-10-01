@@ -7,12 +7,14 @@ import com.joaoarthurolv.essia.arquivos.api.persistence.repository.DiretorioJpaR
 import com.joaoarthurolv.essia.arquivos.api.port.repository.DiretorioRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * @author João Arthur on 19/09/2024
  */
 @Repository
+@Transactional
 public class DiretorioRepositoryImpl implements DiretorioRepository {
 
     private final DiretorioJpaRepository jpaRepository;

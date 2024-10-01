@@ -6,8 +6,8 @@ CREATE TABLE IF NOT EXISTS arquivo_virtual.diretorio
 (
     id_diretorio           int8         not null,
     nome_diretorio         varchar(255) not null,
-    criado_em              timestamp    not null,
-    ultima_modificacao_em  timestamp    not null,
+    criado_em              timestamp,
+    ultima_modificacao_em  timestamp,
     ativo                  boolean      not null default true,
     id_diretorio_pai       int8,
     primary key (id_diretorio)

@@ -13,4 +13,6 @@ public interface ArquivoService {
     List<Arquivo> buscarArquivosPorIdDiretorio(Long idDiretorio);
 
     void apagarArquivo(Long idArquivo);
+
+    Arquivo atualizarArquivo(Arquivo model);
 }

@@ -63,4 +63,15 @@ public class ArquivoController {
 
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Atualiza arquivo baseado no identificador passado.", httpMethod = "PUT")
+    public ResponseEntity atualizarArquivo(@RequestBody ArquivoDTO dto){
+        try {
+            Arquivo arquivo = service.atualizarArquivo(mapper.toModel(dto));
+            return ResponseEntity.ok().body(mapper.fromModel(arquivo));
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
 }

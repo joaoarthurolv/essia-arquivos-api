@@ -26,10 +26,10 @@ import java.time.LocalDateTime;
 public class AbstractEntity {
 
     @CreatedDate
-    @Column(name = "criado_em", nullable = false)
+    @Column(name = "criado_em", updatable = false)
     private LocalDateTime criadoEm;
 
     @LastModifiedDate
-    @Column(name = "ultima_modificacao_em", nullable = false)
+    @Column(name = "ultima_modificacao_em")
     private LocalDateTime ultimaModificacaoEm;
 }

@@ -5,5 +5,5 @@ package com.joaoarthurolv.essia.arquivos.api.rest.producer.controller.routes;
  */
 public interface RouteArquivo extends RouteBase {
     String ARQUIVOS = RouteBase.BASE + "/arquivos";
-    String ID = "/{id}";
+    String ID = "/{id-arquivo}";
 }

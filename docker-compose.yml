@@ -6,16 +6,26 @@ services:
     env_file:
       - docker-variables-db.env
     ports:
-      - '5433:5432'
+      - '5432:5432'
 
   app:
-    container_name: app
+    container_name: arquivos-api
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - '8081:8080'
+      - '8080:8080'
     env_file:
       - docker-variables-spring-application.env
     depends_on:
       - db
+
+  angular-app:
+    container_name: angular-app
+    build:
+      context: D:\essia-arquivos-angular  # Point to the Angular app directory
+      dockerfile: Dockerfile           # Dockerfile for Angular app
+    ports:
+      - '4200:80'                      # Expose Angular app on port 4200
+    depends_on:
+      - app                            # Ensure Spring Boot app starts first

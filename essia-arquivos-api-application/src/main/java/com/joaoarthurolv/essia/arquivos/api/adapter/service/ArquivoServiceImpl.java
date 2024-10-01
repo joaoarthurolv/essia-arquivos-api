@@ -43,6 +43,16 @@ public class ArquivoServiceImpl implements ArquivoService {
         repository.apagarArquivo(arquivo);
     }
 
+    @Override
+    public Arquivo atualizarArquivo(Arquivo model) {
+        Arquivo arquivo = repository.findArquivoById(model.getIdArquivo());
+
+        if(Objects.isNull(arquivo))
+            throw new ArquivoInexistenteException("O arquivo passado não existe.");
+
+        return repository.salvarArquivo(model);
+    }
+
     public Arquivo validarArquivo(Arquivo arquivo) {
         if(Objects.isNull(arquivo.getNomeArquivo()) || arquivo.getNomeArquivo().isEmpty()){
             List<Arquivo> arquivosSemNome = repository.findArquivosSemNome();

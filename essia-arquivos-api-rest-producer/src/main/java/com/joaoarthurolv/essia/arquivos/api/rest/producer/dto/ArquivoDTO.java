@@ -9,9 +9,9 @@ import lombok.Builder;
  */
 @Builder
 public record ArquivoDTO (
-        @JsonProperty("id-arquivo") @Schema(hidden = true) Long idArquivo,
-        @JsonProperty(value = "nome-arquivo") String nomeArquivo,
-        @JsonProperty(value = "id-diretorio-pai") @Schema(hidden = true) Long idDiretorioPai,
+        @Schema(hidden = true) Long idArquivo,
+        String nomeArquivo,
+        @Schema(hidden = true) Long idDiretorioPai,
         @JsonProperty(value = "ativo", defaultValue = "true") Boolean ativo
 ){
     public ArquivoDTO {

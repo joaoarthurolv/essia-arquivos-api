@@ -32,7 +32,7 @@ public class DiretorioEntityMapper {
                 .idDiretorio(model.getIdDiretorio())
                 .nomeDiretorio(model.getNomeDiretorio())
                 .ativo(model.getAtivo())
-                .diretorioPai(Objects.isNull(model.getDiretorioPai()) ? null : DiretorioEntity.builder().idDiretorio(model.getDiretorioPai().getIdDiretorio()).build())
+                .diretorioPai(Objects.isNull(model.getDiretorioPai()) ? null : DiretorioEntity.builder().idDiretorio(model.getDiretorioPai().getIdDiretorio()).nomeDiretorio(model.getDiretorioPai().getNomeDiretorio()).build())
                 .diretoriosFilhos(fromListModel(model.getDiretoriosFilhos()))
                 .criadoEm(model.getCriadoEm())
                 .ultimaModificacaoEm(model.getUltimaModificacaoEm())

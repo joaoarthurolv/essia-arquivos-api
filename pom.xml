@@ -16,7 +16,7 @@
 	<packaging>pom</packaging>
 
 	<name>essia-arquivos-api</name>
-	<description>REST API de arquivos virutais</description>
+	<description>REST API de arquivos virtuais</description>
 	<url/>
 
 	<modules>

@@ -25,7 +25,7 @@ public class DiretorioEntity extends AbstractEntity {
     @Column(name = "nome_diretorio")
     private String nomeDiretorio;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_diretorio_pai", referencedColumnName = "id_diretorio")
     private DiretorioEntity diretorioPai;
 

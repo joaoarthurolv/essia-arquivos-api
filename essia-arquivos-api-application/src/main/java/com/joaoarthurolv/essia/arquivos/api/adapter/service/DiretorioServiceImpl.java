@@ -63,8 +63,15 @@ public class DiretorioServiceImpl implements DiretorioService {
         if(Objects.isNull(diretorio))
             throw new DiretorioInexistenteException("Diretório passado não existe.");
 
+        if(Objects.nonNull(diretorio.getIdDiretorio())){
+            Diretorio diretorioPai = diretorioRepository.findById(diretorio.getIdDiretorio());
+            diretorio.setDiretorioPai(diretorioPai);
+        }
+
         List<Arquivo> arquivos = arquivoService.buscarArquivosPorIdDiretorio(diretorio.getIdDiretorio());
-        arquivos.forEach(arquivo -> arquivoService.apagarArquivo(arquivo.getIdArquivo()));
+
+        if(Objects.nonNull(arquivos) && !arquivos.isEmpty())
+            arquivos.forEach(arquivo -> arquivoService.apagarArquivo(arquivo.getIdArquivo()));
 
         diretorioRepository.apagarRepositorio(diretorio);
     }
